@@ -34,5 +34,5 @@ gcloud compute instances create "$VM_NAME" --zone "$ZONE" --machine-type "$MACHI
 --image "$VM_IMAGE" --project "$PROJECT"
 sleep 5
 
-echo "### Install complete. VM $VN_NAME status:"
+echo "### Install complete. VM \"$VM_NAME\" status:"
 gcloud compute instances list --filter="name=( '$VM_NAME' ... )"

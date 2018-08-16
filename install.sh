@@ -14,6 +14,16 @@ if [ $exit_status -eq 1 ]; then
     exit 1
 fi
 
+# See if $VM_NAME exists
+gcloud compute instances list | grep $VM_NAME
+exit_status=$?
+if [ $exit_status -eq 0 ]; then
+    echo "### VM \"$VM_NAME\" exists. Delete the VM or set a different VM name:"
+    echo "### To delete the VM: gcloud compute instances delete $VM_NAME"
+    echo "### To change the VM name used by this installer: export VM_NAME=my_vm"
+    exit 1
+fi
+
 # Get the latest Ubuntu image.
 echo "### Obtaining the latest Ubuntu Xenial image name..."
 VM_IMAGE=$(gcloud compute images list --standard-images --filter=name~ubuntu-1604-xenial --limit=1 --uri)
